@@ -1,0 +1,64 @@
+/*Fondo general de la página*/
+body {
+    background-color: #fff8f5;
+    font-family: Arial, sans-serif;
+}
+
+/* Encabezado principal */
+header {
+    background: linear-gradient(90deg, #f2b4e4, #f5e6ea);
+    color: #333;
+}
+
+/* Sección de bienvenida */
+.hero {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Tarjetas de productos */
+.card {
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(111, 76, 14, 0.2);
+    transition: transform 0.3s;
+}
+
+/* Efecto al pasar el cursor */
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Imágenes del sitio */
+img {
+    border-radius: 15px;
+}
+
+/* Información adicional */
+aside {
+    background-color: #f5cbab;
+    border-radius: 10px;
+}
+
+/* Pie de página */
+footer {
+    background-color: #8e4c1a;
+    color: white;
+}
+
+/* Adaptación para celulares y pantallas pequeñas */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    iframe {
+        width: 100%;
+        height: 250px;
+    }
+
+    .hero {
+        margin: 10px;
+        padding: 15px;
+    }
+}
