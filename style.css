@@ -62,3 +62,36 @@ footer {
         padding: 15px;
     }
 }
+
+/* Estilos para la sección de registro */
+/* ========================================= */
+
+#registro {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Título de la sección */
+#registro h2 {
+    color: #8e4c1a;
+}
+
+/* Mensajes de validación */
+#mensaje {
+    font-weight: bold;
+}
+
+/* Espacio entre las tarjetas creadas */
+#listaProductos .card {
+    margin-bottom: 20px;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    #registro {
+        padding: 15px;
+    }
+}
