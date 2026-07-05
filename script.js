@@ -6,6 +6,11 @@ const nombre = document.getElementById("nombre");
 const descripcion = document.getElementById("descripcion");
 const categoria = document.getElementById("categoria");
 
+// Obtener los mensajes de error
+const errorNombre = document.getElementById("errorNombre");
+const errorDescripcion = document.getElementById("errorDescripcion");
+const errorCategoria = document.getElementById("errorCategoria");
+
 // Variable para contar los productos registrados
 let total = 0;
 
@@ -26,18 +31,124 @@ formProducto.appendChild(mensaje);
 formProducto.appendChild(contador);
 formProducto.appendChild(listaProductos);
 
+// ======================================
+// Función para validar el nombre
+// ======================================
+function validarNombre() {
+
+    if (nombre.value.trim() === "") {
+
+        errorNombre.textContent = "El nombre es obligatorio.";
+
+        nombre.classList.add("is-invalid");
+        nombre.classList.remove("is-valid");
+
+        return false;
+
+    }
+
+    if (nombre.value.trim().length < 3) {
+
+        errorNombre.textContent = "Debe tener mínimo 3 caracteres.";
+
+        nombre.classList.add("is-invalid");
+        nombre.classList.remove("is-valid");
+
+        return false;
+
+    }
+
+    errorNombre.textContent = "";
+
+    nombre.classList.remove("is-invalid");
+    nombre.classList.add("is-valid");
+
+    return true;
+
+}
+
+// ======================================
+// Función para validar la descripción
+// ======================================
+function validarDescripcion() {
+
+    if (descripcion.value.trim() === "") {
+
+        errorDescripcion.textContent = "La descripción es obligatoria.";
+
+        descripcion.classList.add("is-invalid");
+        descripcion.classList.remove("is-valid");
+
+        return false;
+
+    }
+
+    if (descripcion.value.trim().length < 10) {
+
+        errorDescripcion.textContent = "Debe escribir mínimo 10 caracteres.";
+
+        descripcion.classList.add("is-invalid");
+        descripcion.classList.remove("is-valid");
+
+        return false;
+
+    }
+
+    errorDescripcion.textContent = "";
+
+    descripcion.classList.remove("is-invalid");
+    descripcion.classList.add("is-valid");
+
+    return true;
+
+}
+
+// ======================================
+// Función para validar categoría
+// ======================================
+function validarCategoria() {
+
+    if (categoria.value === "") {
+
+        errorCategoria.textContent = "Seleccione una categoría.";
+
+        categoria.classList.add("is-invalid");
+        categoria.classList.remove("is-valid");
+
+        return false;
+
+    }
+
+    errorCategoria.textContent = "";
+
+    categoria.classList.remove("is-invalid");
+    categoria.classList.add("is-valid");
+
+    return true;
+
+}
+
+// Validaciones en tiempo real
+      nombre.addEventListener("input", validarNombre);
+      descripcion.addEventListener("input", validarDescripcion);
+      categoria.addEventListener("blur", validarCategoria);
+
 // Evento para registrar producto
-formProducto.addEventListener("submit", function(event) {
+  formProducto.addEventListener("submit", function(event) {
 
     // Evitar que la página se recargue
     event.preventDefault();
 
-    // Validar campos vacíos
-    if (nombre.value.trim() === "" || descripcion.value.trim() === "" || categoria.value === "") {
-        mensaje.textContent = "Complete todos los campos.";
-        mensaje.className = "alert alert-danger mt-3";
-        return;
-    }
+   // Validar todos los campos antes de registrar
+        const nombreValido = validarNombre();
+        const descripcionValida = validarDescripcion();
+        const categoriaValida = validarCategoria();
+
+    if (!nombreValido || !descripcionValida || !categoriaValida) {
+         mensaje.textContent = "Corrija los errores antes de registrar.";
+         mensaje.className = "alert alert-danger mt-3";
+         return;
+}
 
     // Crear columna Bootstrap
     const columna = document.createElement("div");
@@ -97,4 +208,13 @@ formProducto.addEventListener("submit", function(event) {
 
     // Limpiar formulario
     formProducto.reset();
+
+    // Quitar estilos de validación después de limpiar el formulario
+      nombre.classList.remove("is-valid");
+      descripcion.classList.remove("is-valid");
+      categoria.classList.remove("is-valid");
+
+      errorNombre.textContent = "";
+      errorDescripcion.textContent = "";
+      errorCategoria.textContent = "";
 });
