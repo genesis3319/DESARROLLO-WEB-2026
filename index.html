@@ -13,11 +13,14 @@
 </head>
 <body>
 
+    <!-- INICIO: estructura que podría convertirse en base.html -->
+    <!-- Encabezado reutilizable -->
     <header class="text-center p-3">
         <h1>Arte Mostacilla - Bisutería Artesanal</h1>
         <p>Accesorios hechos a mano con creatividad y dedicación</p>
     </header>
 
+    <!-- Menú de navegación reutilizable -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">Arte Mostacilla</a>
@@ -31,12 +34,15 @@
                     <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="#quienes">Quiénes Somos</a></li>
                     <li class="nav-item"><a class="nav-link" href="#productos">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#registro">Registrar producto</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
+    <!-- INICIO DEL CONTENIDO PRINCIPAL -->
+    <!-- En Flask, aquí podría utilizarse un bloque de contenido -->
     <main>
 
         <section id="inicio" class="container hero text-center p-4 m-3">
@@ -74,44 +80,18 @@
         </section>
 
         <section id="productos" class="container p-3">
+
             <h2 class="text-center">Productos</h2>
 
-            <div class="row">
+         <!-- Contenido dinámico generado desde JavaScript -->
+            <div id="productosDinamicos" class="row"></div>
 
-                <div class="col-md-4">
-                    <div class="card m-3">
-                        <img src="PULCERA.jpeg" class="card-img-top" alt="Pulsera de mostacilla">
-                        <div class="card-body">
-                            <h5 class="card-title">Pulseras</h5>
-                            <p class="card-text">Pulseras artesanales con diseños personalizados.</p>
-                            <a href="#contacto" class="btn btn-success">Consultar</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card m-3">
-                        <img src="COLLAR 2.jpeg" class="card-img-top" alt="Collar de mostacilla">
-                        <div class="card-body">
-                            <h5 class="card-title">Collares</h5>
-                            <p class="card-text">Collares hechos a mano para diferentes ocasiones.</p>
-                            <a href="#contacto" class="btn btn-success">Consultar</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card m-3">
-                        <img src="ARETES.jpeg" class="card-img-top" alt="Aretes artesanales de mostacilla">
-                        <div class="card-body">
-                            <h5 class="card-title">Aretes</h5>
-                            <p class="card-text">Aretes creativos elaborados con mostacillas.</p>
-                            <a href="#contacto" class="btn btn-success">Consultar</a>
-                        </div>
-                    </div>
-                </div>
-
+         <!-- Mensaje que aparecerá cuando no existan productos -->
+            <div id="mensajeProductos"
+                class="alert alert-warning text-center d-none">
+             No existen productos disponibles.
             </div>
+
         </section>
 
         <section class="container p-3 text-center">
@@ -214,16 +194,16 @@
                           Seleccione
                         </option>
 
-                        <option>
+                        <option value="Pulsera">
                           Pulsera
                         </option>
 
-                        <option>
+                        <option value="Collar">
                            Collar
                         </option>
 
-                        <option>
-                          Aretes
+                        <option value="Aretes">
+                           Aretes
                         </option>
 
                     </select>
@@ -245,6 +225,7 @@
         </section>
 
     </main>
+    <!-- FIN DEL CONTENIDO PRINCIPAL -->
 
     <aside class="container p-3 m-3">
         <h3>Promociones y horarios</h3>
@@ -252,9 +233,11 @@
         <p>Horario de atención: lunes a viernes de 12:00 a 18:00.</p>
     </aside>
 
+    <!-- Pie de página reutilizable -->
     <footer class="text-center p-3">
         <p>Genesis Nikolle Andy Chimbo - Desarrollo de Aplicaciones Web (D) - 2026</p>
     </footer>
+    <!-- FIN: estructura que podría convertirse en base.html -->
 
     <!-- Script Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
