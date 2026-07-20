@@ -39,6 +39,9 @@ const productos = [
 const productosDinamicos = document.getElementById("productosDinamicos");
 const mensajeProductos = document.getElementById("mensajeProductos");
 
+// Obtener el spinner de carga
+const spinnerCarga = document.getElementById("spinnerCarga");
+
 // Variable para contar los productos registrados
 let total = 0;
 
@@ -178,7 +181,7 @@ function renderizarProductos() {
 
         // Crear la tarjeta
         const tarjeta = document.createElement("div");
-        tarjeta.className = "card m-3 shadow";
+        tarjeta.className = "card h-100 shadow-lg border-0";
 
         // Mostrar la imagen si el producto tiene una
         if (producto.imagen !== "") {
@@ -209,6 +212,33 @@ function renderizarProductos() {
         tipo.innerHTML =
             "<strong>Categoría:</strong> " + producto.categoria;
 
+        // Crear el botón para ver detalles
+        const botonDetalles = document.createElement("button");
+        botonDetalles.textContent = "Ver detalles";
+        botonDetalles.className = "btn btn-primary me-2";
+
+        // Evento para mostrar los datos en el modal
+          botonDetalles.addEventListener("click", function() {
+
+        // Colocar los datos del producto dentro del modal
+           document.getElementById("modalNombre").textContent =
+            producto.nombre;
+
+           document.getElementById("modalDescripcion").textContent =
+            producto.descripcion;
+
+           document.getElementById("modalCategoria").textContent =
+            producto.categoria;
+
+        // Crear y abrir el modal de Bootstrap
+           const modalProducto = new bootstrap.Modal(
+            document.getElementById("modalProducto")
+    );
+
+    modalProducto.show();
+});
+
+
         // Crear el botón eliminar
         const botonEliminar = document.createElement("button");
         botonEliminar.textContent = "Eliminar";
@@ -225,6 +255,7 @@ function renderizarProductos() {
         cuerpo.appendChild(titulo);
         cuerpo.appendChild(texto);
         cuerpo.appendChild(tipo);
+        cuerpo.appendChild(botonDetalles);
         cuerpo.appendChild(botonEliminar);
 
         tarjeta.appendChild(cuerpo);
@@ -268,38 +299,54 @@ function actualizarContador() {
          return;
 }
 
+     // Mostrar el spinner
+     spinnerCarga.classList.remove("d-none");
+
+     // Ocultar el mensaje anterior
+      mensaje.textContent = "";
+      mensaje.className = "mt-3";
+
+     // Simular una carga de 2 segundos
+        setTimeout(function () {
+
     // Crear un objeto con los datos ingresados
-     const nuevoProducto = {
-          nombre: nombre.value.trim(),
-          descripcion: descripcion.value.trim(),
-          categoria: categoria.value,
-          imagen: ""
-};
+    const nuevoProducto = {
+        nombre: nombre.value.trim(),
+        descripcion: descripcion.value.trim(),
+        categoria: categoria.value,
+        imagen: ""
+    };
 
     // Agregar el nuevo producto al arreglo
-        productos.push(nuevoProducto);
+    productos.push(nuevoProducto);
 
     // Volver a mostrar todos los productos
-        renderizarProductos();
+    renderizarProductos();
 
     // Actualizar el contador
-        actualizarContador();
+    actualizarContador();
+
+    // Ocultar el spinner
+    spinnerCarga.classList.add("d-none");
 
     // Mostrar mensaje de éxito
-       mensaje.textContent = "Producto registrado correctamente.";
-       mensaje.className = "alert alert-success mt-3";
+    mensaje.textContent = "Producto registrado correctamente.";
+    mensaje.className = "alert alert-success mt-3";
 
     // Limpiar formulario
-       formProducto.reset();
+    formProducto.reset();
 
-    // Quitar estilos de validación después de limpiar el formulario
-      nombre.classList.remove("is-valid");
-      descripcion.classList.remove("is-valid");
-      categoria.classList.remove("is-valid");
+    // Quitar estilos de validación
+    nombre.classList.remove("is-valid");
+    descripcion.classList.remove("is-valid");
+    categoria.classList.remove("is-valid");
 
-      errorNombre.textContent = "";
-      errorDescripcion.textContent = "";
-      errorCategoria.textContent = "";
+    errorNombre.textContent = "";
+    errorDescripcion.textContent = "";
+    errorCategoria.textContent = "";
+
+}, 2000);
+
 });
 
     // Mostrar los productos al cargar la página
