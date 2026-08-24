@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}
+Productos - Arte Mostacilla
+{% endblock %}
+
+{% block content %}
+
+<section class="container mt-5">
+
+    <h2 class="text-center mb-4">
+        Nuestros Productos
+    </h2>
+
+    <div class="row">
+
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
+
+                <img
+                    src="{{ url_for('static', filename='img/PULCERA.jpeg') }}"
+                    class="card-img-top"
+                    alt="Pulsera artesanal">
+
+                <div class="card-body">
+
+                    <h5 class="card-title">
+                        Pulsera artesanal
+                    </h5>
+
+                    <p class="card-text">
+                        Pulsera elaborada con mostacillas de diferentes colores.
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
+
+                <img
+                    src="{{ url_for('static', filename='img/COLLAR 2.jpeg') }}"
+                    class="card-img-top"
+                    alt="Collar artesanal">
+
+                <div class="card-body">
+
+                    <h5 class="card-title">
+                        Collar artesanal
+                    </h5>
+
+                    <p class="card-text">
+                        Collar elaborado a mano para diferentes ocasiones.
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
+
+                <img
+                    src="{{ url_for('static', filename='img/ARETES.jpeg') }}"
+                    class="card-img-top"
+                    alt="Aretes artesanales">
+
+                <div class="card-body">
+
+                    <h5 class="card-title">
+                        Aretes artesanales
+                    </h5>
+
+                    <p class="card-text">
+                        Aretes creativos elaborados con mostacillas.
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
