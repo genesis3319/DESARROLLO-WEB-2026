@@ -19,19 +19,19 @@ const productos = [
         nombre: "Pulsera artesanal",
         descripcion: "Pulsera elaborada con mostacillas de diferentes colores.",
         categoria: "Pulsera",
-        imagen: "/static/img/PULCERA.jpeg"
+        imagen: "static/img/PULCERA.jpeg"
     },
     {
         nombre: "Collar artesanal",
         descripcion: "Collar hecho a mano para diferentes ocasiones.",
         categoria: "Collar",
-        imagen: "/static/img/COLLAR 2.jpeg"
+        imagen: "static/img/COLLAR 2.jpeg"
     },
     {
         nombre: "Aretes artesanales",
         descripcion: "Aretes creativos elaborados con mostacillas.",
         categoria: "Aretes",
-        imagen: "/static/img/ARETES.jpeg"
+        imagen: "static/img/ARETES.jpeg"
     }
 ];
 
