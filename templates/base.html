@@ -24,57 +24,8 @@
         <p>Accesorios hechos a mano con creatividad y dedicación</p>
     </header>
 
-    <!-- Menú de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-
-            <a class="navbar-brand" href="{{ url_for('inicio') }}">
-                Arte Mostacilla
-            </a>
-
-            <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#menuPrincipal">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="menuPrincipal">
-                <ul class="navbar-nav ms-auto">
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('inicio') }}">
-                            Inicio
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('productos') }}">
-                            Productos
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('clientes') }}">
-                            Clientes
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('proveedores') }}">
-                            Proveedores
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('facturacion') }}">
-                            Facturación
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <!-- Menú de navegación reutilizable -->
+     {% include "components/navbar.html" %}   
 
     <!-- Contenido de cada página -->
     <main>
@@ -82,12 +33,8 @@
         {% endblock %}
     </main>
 
-    <!-- Pie de página -->
-    <footer class="bg-dark text-white text-center py-3 mt-5">
-        <p class="mb-0">
-            &copy; 2026 Arte Mostacilla - Bisutería Artesanal
-        </p>
-    </footer>
+    <!-- Pie de página reutilizable -->
+     {% include "components/footer.html" %}
 
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

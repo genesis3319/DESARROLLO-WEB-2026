@@ -8,42 +8,34 @@ Proveedores - Arte Mostacilla
 
 <section class="container mt-5">
 
-    <h2 class="text-center mb-4">Proveedores</h2>
-
-    <p class="text-center">
-        Información demostrativa de proveedores de materiales para Arte Mostacilla.
-    </p>
+    <h2 class="text-center mb-4">
+        {{ titulo }}
+    </h2>
 
     <div class="table-responsive">
 
-        <table class="table table-striped table-bordered">
+        <table class="table table-bordered table-striped text-center">
 
             <thead class="table-dark">
                 <tr>
                     <th>Proveedor</th>
-                    <th>Material</th>
+                    <th>Producto</th>
                     <th>Ciudad</th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr>
-                    <td>Distribuidora Artesanal</td>
-                    <td>Mostacillas</td>
-                    <td>Puyo</td>
-                </tr>
+
+                {% for proveedor in proveedores %}
 
                 <tr>
-                    <td>Accesorios Creativos</td>
-                    <td>Broches e hilos</td>
-                    <td>Quito</td>
+                    <td>{{ proveedor.nombre }}</td>
+                    <td>{{ proveedor.producto }}</td>
+                    <td>{{ proveedor.ciudad }}</td>
                 </tr>
 
-                <tr>
-                    <td>Mundo Artesanal</td>
-                    <td>Mostacillas y accesorios</td>
-                    <td>Ambato</td>
-                </tr>
+                {% endfor %}
+
             </tbody>
 
         </table>

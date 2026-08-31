@@ -9,44 +9,32 @@ Clientes - Arte Mostacilla
 <section class="container mt-5">
 
     <h2 class="text-center mb-4">
-        Clientes
+        {{ titulo }}
     </h2>
-
-    <p class="text-center">
-        Registro demostrativo de clientes de Arte Mostacilla.
-    </p>
 
     <div class="table-responsive">
 
-        <table class="table table-striped table-bordered">
+        <table class="table table-bordered table-striped text-center">
 
             <thead class="table-dark">
                 <tr>
                     <th>Nombre</th>
                     <th>Teléfono</th>
-                    <th>Dirección</th>
+                    <th>Ciudad</th>
                 </tr>
             </thead>
 
             <tbody>
 
-                <tr>
-                    <td>María López</td>
-                    <td>0991234567</td>
-                    <td>Arajuno</td>
-                </tr>
+                {% for cliente in clientes %}
 
                 <tr>
-                    <td>Ana Pérez</td>
-                    <td>0987654321</td>
-                    <td>Puyo</td>
+                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.telefono }}</td>
+                    <td>{{ cliente.ciudad }}</td>
                 </tr>
 
-                <tr>
-                    <td>Carolina Vargas</td>
-                    <td>0974561230</td>
-                    <td>Pastaza</td>
-                </tr>
+                {% endfor %}
 
             </tbody>
 

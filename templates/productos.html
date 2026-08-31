@@ -9,79 +9,63 @@ Productos - Arte Mostacilla
 <section class="container mt-5">
 
     <h2 class="text-center mb-4">
-        Nuestros Productos
+        {{ titulo }}
     </h2>
 
     <div class="row">
 
+        {% for producto in productos %}
+
         <div class="col-md-4 mb-4">
-            <div class="card shadow">
+
+            <div class="card shadow h-100">
 
                 <img
-                    src="{{ url_for('static', filename='img/PULCERA.jpeg') }}"
+                    src="{{ url_for('static', filename='img/' + producto.imagen) }}"
                     class="card-img-top"
-                    alt="Pulsera artesanal">
+                    alt="{{ producto.nombre }}">
 
                 <div class="card-body">
 
                     <h5 class="card-title">
-                        Pulsera artesanal
+                        {{ producto.nombre|upper }}
                     </h5>
 
                     <p class="card-text">
-                        Pulsera elaborada con mostacillas de diferentes colores.
+                        {{ producto.descripcion }}
                     </p>
+
+                    <p>
+                        <strong>Categoría:</strong>
+                        {{ producto.categoria }}
+                    </p>
+
+                    <p>
+                        <strong>Precio:</strong>
+                        ${{ producto.precio }}
+                    </p>
+
+                    {% if producto.stock > 0 %}
+
+                        <span class="badge bg-success">
+                            Disponible - {{ producto.stock }} unidades
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge bg-danger">
+                            Agotado
+                        </span>
+
+                    {% endif %}
 
                 </div>
 
             </div>
+
         </div>
 
-        <div class="col-md-4 mb-4">
-            <div class="card shadow">
-
-                <img
-                    src="{{ url_for('static', filename='img/COLLAR 2.jpeg') }}"
-                    class="card-img-top"
-                    alt="Collar artesanal">
-
-                <div class="card-body">
-
-                    <h5 class="card-title">
-                        Collar artesanal
-                    </h5>
-
-                    <p class="card-text">
-                        Collar elaborado a mano para diferentes ocasiones.
-                    </p>
-
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card shadow">
-
-                <img
-                    src="{{ url_for('static', filename='img/ARETES.jpeg') }}"
-                    class="card-img-top"
-                    alt="Aretes artesanales">
-
-                <div class="card-body">
-
-                    <h5 class="card-title">
-                        Aretes artesanales
-                    </h5>
-
-                    <p class="card-text">
-                        Aretes creativos elaborados con mostacillas.
-                    </p>
-
-                </div>
-
-            </div>
-        </div>
+        {% endfor %}
 
     </div>
 
