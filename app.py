@@ -1,7 +1,14 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, flash, redirect, url_for
+
+from forms.producto_form import ProductoForm
+from forms.cliente_form import ClienteForm
+from forms.proveedor_form import ProveedorForm
+from forms.facturacion_form import FacturacionForm
 
 app = Flask(__name__)
 
+# Clave secreta para la protección CSRF
+app.config['SECRET_KEY'] = 'arte-mostacilla-clave-secreta-2026'
 
 # Ruta principal
 @app.route('/')
@@ -10,10 +17,15 @@ def inicio():
 
 
 # Ruta de productos
-@app.route('/productos')
+@app.route('/productos', methods=['GET', 'POST'])
 def productos():
 
     titulo = "Nuestros productos artesanales"
+
+    form = ProductoForm()
+
+    if form.validate_on_submit():
+        print("Formulario de producto válido")
 
     productos = [
         {
@@ -45,7 +57,25 @@ def productos():
     return render_template(
         'productos.html',
         titulo=titulo,
-        productos=productos
+        productos=productos,
+        form=form
+
+    )
+
+@app.route('/productos/nuevo', methods=['GET', 'POST'])
+def nuevo_producto():
+
+    form = ProductoForm()
+
+    if form.validate_on_submit():
+       flash('Producto registrado correctamente.', 'success')
+       return redirect(url_for('nuevo_producto'))
+    else:
+       print(form.errors)
+
+    return render_template(
+        'formulario_producto.html',
+        form=form
     )
 
 # Ruta de clientes
@@ -78,6 +108,19 @@ def clientes():
         clientes=clientes
     )
 
+@app.route('/clientes/nuevo', methods=['GET', 'POST'])
+def nuevo_cliente():
+
+    form = ClienteForm()
+
+    if form.validate_on_submit():
+        flash('Cliente registrado correctamente.', 'success')
+        return redirect(url_for('nuevo_cliente'))
+
+    return render_template(
+        'formulario_cliente.html',
+        form=form
+    )
 
 # Ruta de proveedores
 @app.route('/proveedores')
@@ -107,6 +150,20 @@ def proveedores():
         'proveedores.html',
         titulo=titulo,
         proveedores=proveedores
+    )
+
+@app.route('/proveedores/nuevo', methods=['GET', 'POST'])
+def nuevo_proveedor():
+
+    form = ProveedorForm()
+
+    if form.validate_on_submit():
+        flash('Proveedor registrado correctamente.', 'success')
+        return redirect(url_for('nuevo_proveedor'))
+
+    return render_template(
+        'formulario_proveedor.html',
+        form=form
     )
 
 # Ruta de facturación
@@ -140,6 +197,20 @@ def facturacion():
         'facturacion.html',
         titulo=titulo,
         facturas=facturas
+    )
+
+@app.route('/facturacion/nueva', methods=['GET', 'POST'])
+def nueva_factura():
+
+    form = FacturacionForm()
+
+    if form.validate_on_submit():
+        flash('Factura registrada correctamente.', 'success')
+        return redirect(url_for('nueva_factura'))
+
+    return render_template(
+        'formulario_facturacion.html',
+        form=form
     )
 
 if __name__ == '__main__':

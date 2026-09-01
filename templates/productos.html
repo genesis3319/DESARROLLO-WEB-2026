@@ -12,6 +12,11 @@ Productos - Arte Mostacilla
         {{ titulo }}
     </h2>
 
+    <div class="text-end mb-4">
+        <a href="{{ url_for('nuevo_producto') }}" class="btn btn-primary">
+            Registrar producto
+        </a>
+    </div>
     <div class="row">
 
         {% for producto in productos %}
