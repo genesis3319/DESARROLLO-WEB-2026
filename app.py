@@ -1,4 +1,5 @@
 from flask import Flask, render_template, flash, redirect, url_for
+import sqlite3
 
 from forms.producto_form import ProductoForm
 from forms.cliente_form import ClienteForm
@@ -9,6 +10,28 @@ app = Flask(__name__)
 
 # Clave secreta para la protección CSRF
 app.config['SECRET_KEY'] = 'arte-mostacilla-clave-secreta-2026'
+
+# Ruta de la base de datos SQLite
+DATABASE = 'data/ferreteria.db'
+
+# Función para crear la base de datos y la tabla productos
+def inicializar_bd():
+    conexion = sqlite3.connect(DATABASE)
+    cursor = conexion.cursor()
+
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS productos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT NOT NULL,
+            descripcion TEXT NOT NULL,
+            categoria TEXT NOT NULL,
+            precio REAL NOT NULL,
+            stock INTEGER NOT NULL
+        )
+    ''')
+
+    conexion.commit()
+    conexion.close()
 
 # Ruta principal
 @app.route('/')
@@ -22,44 +45,23 @@ def productos():
 
     titulo = "Nuestros productos artesanales"
 
-    form = ProductoForm()
+    conexion = sqlite3.connect(DATABASE)
+    conexion.row_factory = sqlite3.Row
+    cursor = conexion.cursor()
 
-    if form.validate_on_submit():
-        print("Formulario de producto válido")
+    cursor.execute('''
+        SELECT id, nombre, descripcion, categoria, precio, stock
+        FROM productos
+    ''')
 
-    productos = [
-        {
-            "nombre": "Pulsera artesanal",
-            "descripcion": "Pulsera elaborada con mostacillas de diferentes colores.",
-            "categoria": "Pulsera",
-            "precio": 5.00,
-            "stock": 8,
-            "imagen": "PULCERA.jpeg"
-        },
-        {
-            "nombre": "Collar artesanal",
-            "descripcion": "Collar elaborado a mano para diferentes ocasiones.",
-            "categoria": "Collar",
-            "precio": 15.00,
-            "stock": 4,
-            "imagen": "COLLAR 2.jpeg"
-        },
-        {
-            "nombre": "Aretes artesanales",
-            "descripcion": "Aretes creativos elaborados con mostacillas.",
-            "categoria": "Aretes",
-            "precio": 8.00,
-            "stock": 0,
-            "imagen": "ARETES.jpeg"
-        }
-    ]
+    productos = cursor.fetchall()
+
+    conexion.close()
 
     return render_template(
         'productos.html',
         titulo=titulo,
-        productos=productos,
-        form=form
-
+        productos=productos
     )
 
 @app.route('/productos/nuevo', methods=['GET', 'POST'])
@@ -68,10 +70,29 @@ def nuevo_producto():
     form = ProductoForm()
 
     if form.validate_on_submit():
-       flash('Producto registrado correctamente.', 'success')
-       return redirect(url_for('nuevo_producto'))
-    else:
-       print(form.errors)
+
+        conexion = sqlite3.connect(DATABASE)
+        cursor = conexion.cursor()
+
+        cursor.execute(
+            '''
+            INSERT INTO productos (nombre, descripcion, categoria, precio, stock)
+            VALUES (?, ?, ?, ?, ?)
+            ''',
+            (
+                form.nombre.data,
+                form.descripcion.data,
+                form.categoria.data,
+                float(form.precio.data),
+                form.stock.data
+            )
+        )
+
+        conexion.commit()
+        conexion.close()
+
+        flash('Producto registrado correctamente.', 'success')
+        return redirect(url_for('nuevo_producto'))
 
     return render_template(
         'formulario_producto.html',
@@ -214,4 +235,5 @@ def nueva_factura():
     )
 
 if __name__ == '__main__':
+    inicializar_bd()
     app.run(debug=True)

@@ -17,60 +17,40 @@ Productos - Arte Mostacilla
             Registrar producto
         </a>
     </div>
-    <div class="row">
 
-        {% for producto in productos %}
+    <div class="table-responsive">
 
-        <div class="col-md-4 mb-4">
+        <table class="table table-bordered table-striped text-center">
 
-            <div class="card shadow h-100">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                </tr>
+            </thead>
 
-                <img
-                    src="{{ url_for('static', filename='img/' + producto.imagen) }}"
-                    class="card-img-top"
-                    alt="{{ producto.nombre }}">
+            <tbody>
 
-                <div class="card-body">
+                {% for producto in productos %}
 
-                    <h5 class="card-title">
-                        {{ producto.nombre|upper }}
-                    </h5>
+                <tr>
+                    <td>{{ producto.id }}</td>
+                    <td>{{ producto.nombre }}</td>
+                    <td>{{ producto.descripcion }}</td>
+                    <td>{{ producto.categoria }}</td>
+                    <td>${{ producto.precio }}</td>
+                    <td>{{ producto.stock }}</td>
+                </tr>
 
-                    <p class="card-text">
-                        {{ producto.descripcion }}
-                    </p>
+                {% endfor %}
 
-                    <p>
-                        <strong>Categoría:</strong>
-                        {{ producto.categoria }}
-                    </p>
+            </tbody>
 
-                    <p>
-                        <strong>Precio:</strong>
-                        ${{ producto.precio }}
-                    </p>
-
-                    {% if producto.stock > 0 %}
-
-                        <span class="badge bg-success">
-                            Disponible - {{ producto.stock }} unidades
-                        </span>
-
-                    {% else %}
-
-                        <span class="badge bg-danger">
-                            Agotado
-                        </span>
-
-                    {% endif %}
-
-                </div>
-
-            </div>
-
-        </div>
-
-        {% endfor %}
+        </table>
 
     </div>
 
