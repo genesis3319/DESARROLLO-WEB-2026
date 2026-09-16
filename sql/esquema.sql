@@ -36,6 +36,26 @@ CREATE TABLE IF NOT EXISTS facturas (
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
 );
 
+-- ==========================================
+-- TABLA DE USUARIOS PARA AUTENTICACIÓN
+-- ==========================================
+
+-- Almacena los usuarios registrados en el sistema
+CREATE TABLE IF NOT EXISTS usuarios (
+
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+
+    -- Nombre del usuario
+    nombre VARCHAR(100) NOT NULL,
+
+    -- Correo utilizado para iniciar sesión
+    correo VARCHAR(100) NOT NULL UNIQUE,
+
+    -- Contraseña almacenada de forma segura mediante hash
+    password VARCHAR(255) NOT NULL
+
+);
+
 -- Consulta relacionada entre productos y proveedores
 SELECT 
     productos.nombre AS producto,

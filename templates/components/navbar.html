@@ -45,6 +45,41 @@
                     </a>
                 </li>
 
+                <!-- Opciones según el estado de la sesión -->
+                {% if current_user.is_authenticated %}
+
+                    <!-- Mostrar el nombre del usuario que inició sesión -->
+                    <li class="nav-item">
+                        <span class="nav-link">
+                            👤 {{ current_user.nombre }}
+                        </span>
+                    </li>
+
+                    <!-- Opción para cerrar sesión -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">
+                            Cerrar sesión
+                        </a>
+                    </li>
+
+                {% else %}
+
+                    <!-- Opción para iniciar sesión -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('login') }}">
+                            Iniciar sesión
+                        </a>
+                    </li>
+
+                    <!-- Opción para registrar un nuevo usuario -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('registro') }}">
+                            Registrarse
+                        </a>
+                    </li>
+
+                {% endif %}
+
             </ul>
         </div>
 

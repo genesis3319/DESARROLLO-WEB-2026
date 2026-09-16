@@ -1,0 +1,60 @@
+<!-- Hereda la estructura principal de base.html -->
+{% extends "base.html" %}
+
+<!-- Título de la página -->
+{% block title %}
+Iniciar sesión - Arte Mostacilla
+{% endblock %}
+
+<!-- Inicio del contenido principal -->
+{% block content %}
+
+<section class="container mt-5 mb-5">
+
+    <!-- Título del formulario -->
+    <h2 class="text-center mb-4">Iniciar sesión</h2>
+
+    <!-- Contenedor para centrar el formulario -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <!-- Formulario de inicio de sesión -->
+            <form method="POST">
+
+                <!-- Protección CSRF de Flask-WTF -->
+                {{ form.hidden_tag() }}
+
+                <!-- Campo de correo electrónico -->
+                <div class="mb-3">
+                    {{ form.correo.label(class="form-label") }}
+                    {{ form.correo(class="form-control") }}
+
+                    <!-- Mensajes de error del correo -->
+                    {% for error in form.correo.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <!-- Campo de contraseña -->
+                <div class="mb-3">
+                    {{ form.password.label(class="form-label") }}
+                    {{ form.password(class="form-control") }}
+
+                    <!-- Mensajes de error de la contraseña -->
+                    {% for error in form.password.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <!-- Botón para iniciar sesión -->
+                {{ form.submit(class="btn btn-primary w-100") }}
+
+            </form>
+
+        </div>
+    </div>
+
+</section>
+
+<!-- Fin del contenido principal -->
+{% endblock %}
