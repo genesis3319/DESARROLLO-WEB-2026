@@ -414,6 +414,7 @@ def eliminar_producto(id_producto):
 
 # Ruta de clientes
 @app.route('/clientes')
+@login_required
 def clientes():
 
     titulo = "Nuestros clientes"
@@ -443,6 +444,7 @@ def clientes():
     )
 
 @app.route('/clientes/nuevo', methods=['GET', 'POST'])
+@login_required
 def nuevo_cliente():
 
     form = ClienteForm()
@@ -458,6 +460,7 @@ def nuevo_cliente():
 
 # Ruta de proveedores
 @app.route('/proveedores')
+@login_required
 def proveedores():
 
     titulo = "Nuestros proveedores"
@@ -486,7 +489,9 @@ def proveedores():
         proveedores=proveedores
     )
 
+# Ruta para registrar un nuevo proveedor
 @app.route('/proveedores/nuevo', methods=['GET', 'POST'])
+@login_required
 def nuevo_proveedor():
 
     form = ProveedorForm()
@@ -502,6 +507,7 @@ def nuevo_proveedor():
 
 # Ruta de facturación
 @app.route('/facturacion')
+@login_required
 def facturacion():
 
     titulo = "Registro de facturación"
@@ -533,7 +539,9 @@ def facturacion():
         facturas=facturas
     )
 
+# Ruta para registrar una nueva factura
 @app.route('/facturacion/nueva', methods=['GET', 'POST'])
+@login_required
 def nueva_factura():
 
     form = FacturacionForm()
