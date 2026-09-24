@@ -1,5 +1,8 @@
 import os
 
+# Permite obtener los resultados de PostgreSQL como diccionarios
+from psycopg2.extras import RealDictCursor
+
 from flask import Flask, render_template, flash, redirect, url_for
 from conexion.conexion import obtener_conexion
 
@@ -50,14 +53,14 @@ login_manager.login_message_category = 'warning'
 # Clase que representa al usuario que inicia sesión
 class Usuario(UserMixin):
 
-    # Recibir los datos del usuario desde MySQL
+    # Recibir los datos del usuario desde PostgreSQL
     def __init__(self, id_usuario, nombre, correo):
         self.id = id_usuario
         self.nombre = nombre
         self.correo = correo
 
 # ==========================================
-# CARGAR USUARIO DESDE MYSQL
+# CARGAR USUARIO DESDE POSTGRESQL
 # ==========================================
 
 # Flask-Login utiliza esta función para recuperar
@@ -65,9 +68,11 @@ class Usuario(UserMixin):
 @login_manager.user_loader
 def cargar_usuario(user_id):
 
-    # Conectar con la base de datos MySQL
+    # Conectar con la base de datos PostgreSQL
     conexion = obtener_conexion()
-    cursor = conexion.cursor(dictionary=True)
+
+    # Obtener los resultados como diccionarios
+    cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
     # Buscar al usuario mediante su ID
     cursor.execute(
@@ -114,9 +119,11 @@ def registro():
     # Verificar que el formulario sea válido
     if form.validate_on_submit():
 
-        # Conectar con la base de datos MySQL
+        # Conectar con la base de datos PostgreSQL
         conexion = obtener_conexion()
-        cursor = conexion.cursor(dictionary=True)
+
+        # Obtener los resultados como diccionarios
+        cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
         # Verificar si el correo ya está registrado
         cursor.execute(
@@ -141,7 +148,7 @@ def registro():
         # Proteger la contraseña antes de guardarla
         password_hash = generate_password_hash(form.password.data)
 
-        # Guardar el nuevo usuario en MySQL
+        # Guardar el nuevo usuario en PostgreSQL
         cursor.execute(
             '''
             INSERT INTO usuarios (nombre, correo, password)
@@ -183,9 +190,11 @@ def login():
     # Verificar que el formulario sea válido
     if form.validate_on_submit():
 
-        # Conectar con la base de datos MySQL
+        # Conectar con la base de datos PostgreSQL
         conexion = obtener_conexion()
-        cursor = conexion.cursor(dictionary=True)
+
+        # Obtener los resultados como diccionarios
+        cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
         # Buscar al usuario mediante su correo electrónico
         cursor.execute(
@@ -255,7 +264,9 @@ def productos():
     titulo = "Nuestros productos artesanales"
 
     conexion = obtener_conexion()
-    cursor = conexion.cursor(dictionary=True)
+
+    # Obtener los productos como diccionarios desde PostgreSQL
+    cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
     cursor.execute('''
         SELECT id_producto AS id,
@@ -323,7 +334,9 @@ def nuevo_producto():
 def editar_producto(id_producto):
 
     conexion = obtener_conexion()
-    cursor = conexion.cursor(dictionary=True)
+
+    # Obtener el producto como diccionario desde PostgreSQL
+    cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
     cursor.execute(
         '''
