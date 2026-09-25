@@ -73,6 +73,19 @@
             {% endfor %}
         </div>
 
+        <!-- Selección del proveedor relacionado con el producto -->
+        <div class="mb-3">
+            {{ form.proveedor.label(class="form-label") }}
+            {{ form.proveedor(class="form-select") }}
+
+            <!-- Mostrar errores de validación del proveedor -->
+            {% for error in form.proveedor.errors %}
+                <div class="text-danger">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
         {{ form.submit(class="btn btn-primary") }}
     </form>
 </div>

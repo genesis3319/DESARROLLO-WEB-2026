@@ -20,31 +20,66 @@ Proveedores - Arte Mostacilla
 
     <div class="table-responsive">
 
-        <table class="table table-bordered table-striped text-center">
+        <!-- Tabla que muestra los proveedores registrados -->
+<table class="table table-bordered table-striped text-center">
 
-            <thead class="table-dark">
-                <tr>
-                    <th>Proveedor</th>
-                    <th>Producto</th>
-                    <th>Ciudad</th>
-                </tr>
-            </thead>
+    <thead class="table-dark">
+        <tr>
+            <th>Proveedor</th>
+            <th>Producto</th>
+            <th>Ciudad</th>
 
-            <tbody>
+            <!-- Columna para las acciones del proveedor -->
+            <th>Acciones</th>
+        </tr>
+    </thead>
 
-                {% for proveedor in proveedores %}
+    <tbody>
 
-                <tr>
-                    <td>{{ proveedor.nombre }}</td>
-                    <td>{{ proveedor.producto }}</td>
-                    <td>{{ proveedor.ciudad }}</td>
-                </tr>
+        <!-- Recorrer los proveedores obtenidos desde PostgreSQL -->
+        {% for proveedor in proveedores %}
 
-                {% endfor %}
+        <tr>
+            <td>{{ proveedor.nombre }}</td>
+            <td>{{ proveedor.producto }}</td>
+            <td>{{ proveedor.ciudad }}</td>
 
-            </tbody>
+            <!-- Botones de acciones del proveedor -->
+<td>
 
-        </table>
+    <!-- Botón para editar el proveedor -->
+    <a href="{{ url_for('editar_proveedor', id_proveedor=proveedor.id_proveedor) }}"
+       class="btn btn-warning btn-sm">
+        Editar
+    </a>
+
+    <!-- Formulario para eliminar el proveedor -->
+    <form action="{{ url_for('eliminar_proveedor', id_proveedor=proveedor.id_proveedor) }}"
+          method="POST"
+          class="d-inline">
+
+        <!-- Token de seguridad CSRF -->
+        <input type="hidden"
+               name="csrf_token"
+               value="{{ csrf_token() }}">
+
+        <!-- Botón para eliminar con mensaje de confirmación -->
+        <button type="submit"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm('¿Está seguro de eliminar este proveedor?');">
+            Eliminar
+        </button>
+
+    </form>
+
+</td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
 
     </div>
 

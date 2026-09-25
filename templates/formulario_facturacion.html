@@ -3,58 +3,73 @@
 {% block content %}
 
 <div class="container mt-4">
+
+    <!-- Título del formulario -->
     <h2 class="mb-4">Registrar factura</h2>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }} mt-3">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-
+    <!-- Formulario para registrar una factura -->
     <form method="POST" novalidate>
+
+        <!-- Protección CSRF de Flask-WTF -->
         {{ form.hidden_tag() }}
 
+        <!-- Campo para indicar el ID del cliente -->
         <div class="mb-3">
-            {{ form.numero.label(class="form-label") }}
-            {{ form.numero(class="form-control") }}
+            {{ form.id_cliente.label(class="form-label") }}
+            {{ form.id_cliente(class="form-control") }}
 
-            {% for error in form.numero.errors %}
+            <!-- Mostrar errores de validación -->
+            {% for error in form.id_cliente.errors %}
                 <div class="text-danger">
                     {{ error }}
                 </div>
             {% endfor %}
         </div>
 
+        <!-- Campo para seleccionar la fecha de la factura -->
         <div class="mb-3">
-            {{ form.cliente.label(class="form-label") }}
-            {{ form.cliente(class="form-control") }}
+            {{ form.fecha.label(class="form-label") }}
+            {{ form.fecha(class="form-control") }}
 
-            {% for error in form.cliente.errors %}
+            <!-- Mostrar errores de validación -->
+            {% for error in form.fecha.errors %}
+                <div class="text-danger">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+                <!-- Campo para seleccionar el producto de la factura -->
+        <div class="mb-3">
+            {{ form.id_producto.label(class="form-label") }}
+            {{ form.id_producto(class="form-select") }}
+
+            <!-- Mostrar errores de validación del producto -->
+            {% for error in form.id_producto.errors %}
                 <div class="text-danger">
                     {{ error }}
                 </div>
             {% endfor %}
         </div>
 
+        <!-- Campo para indicar la cantidad del producto -->
         <div class="mb-3">
-            {{ form.producto.label(class="form-label") }}
-            {{ form.producto(class="form-control") }}
+            {{ form.cantidad.label(class="form-label") }}
+            {{ form.cantidad(class="form-control") }}
 
-            {% for error in form.producto.errors %}
+            <!-- Mostrar errores de validación de la cantidad -->
+            {% for error in form.cantidad.errors %}
                 <div class="text-danger">
                     {{ error }}
                 </div>
             {% endfor %}
         </div>
 
+        <!-- Campo para ingresar el total de la factura -->
         <div class="mb-3">
             {{ form.total.label(class="form-label") }}
             {{ form.total(class="form-control") }}
 
+            <!-- Mostrar errores de validación -->
             {% for error in form.total.errors %}
                 <div class="text-danger">
                     {{ error }}
@@ -62,8 +77,11 @@
             {% endfor %}
         </div>
 
+        <!-- Botón para guardar la factura -->
         {{ form.submit(class="btn btn-primary") }}
+
     </form>
+
 </div>
 
 {% endblock %}

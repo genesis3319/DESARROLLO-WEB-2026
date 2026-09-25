@@ -30,6 +30,9 @@ Productos - Arte Mostacilla
                     <th>Categoría</th>
                     <th>Precio</th>
                     <th>Stock</th>
+                    <!-- Proveedor relacionado mediante PostgreSQL -->
+                    <th>Proveedor</th>
+
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -45,6 +48,10 @@ Productos - Arte Mostacilla
                     <td>{{ producto.categoria }}</td>
                     <td>${{ producto.precio }}</td>
                     <td>{{ producto.stock }}</td>
+                    <!-- Mostrar el proveedor obtenido mediante el LEFT JOIN -->
+                    <td>
+                        {{ producto.proveedor if producto.proveedor else 'Sin proveedor' }}
+                    </td>
                     <td>
                         <a href="{{ url_for('editar_producto', id_producto=producto.id) }}"
                            class="btn btn-warning btn-sm">
