@@ -265,6 +265,7 @@ def logout():
 
 # Ruta de productos
 @app.route('/productos')
+@login_required
 def productos():
 
     titulo = "Nuestros productos artesanales"
