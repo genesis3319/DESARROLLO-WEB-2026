@@ -42,7 +42,9 @@ Productos - Arte Mostacilla
                 {% for producto in productos %}
 
                 <tr>
-                    <td>{{ producto.id }}</td>
+                    <!-- Número consecutivo solo para mostrar la tabla ordenada -->
+                    <td>{{ loop.index }}</td>
+                    
                     <td>{{ producto.nombre }}</td>
                     <td>{{ producto.descripcion }}</td>
                     <td>{{ producto.categoria }}</td>
