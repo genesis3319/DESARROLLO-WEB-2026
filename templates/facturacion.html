@@ -48,8 +48,8 @@ Facturación - Arte Mostacilla
         {% for factura in facturas %}
 
         <tr>
-            <!-- Identificador de la factura -->
-            <td>{{ factura.id_factura }}</td>
+            <!-- Número consecutivo solo para mostrar la tabla ordenada -->
+            <td>{{ loop.index }}</td>
 
             <!-- Nombre del cliente relacionado con la factura -->
             <td>{{ factura.cliente }}</td>
