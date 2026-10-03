@@ -10,12 +10,13 @@ from wtforms.validators import DataRequired, NumberRange
 
 class FacturacionForm(FlaskForm):
 
-    # ID del cliente registrado en la base de datos
-    id_cliente = IntegerField(
-        'ID del cliente',
+    # Cliente registrado en la base de datos
+    # lista desplegable con los clientes disponibles
+    id_cliente = SelectField(
+        'Cliente',
+        coerce=int,
         validators=[
-            DataRequired(message='El cliente es obligatorio.'),
-            NumberRange(min=1, message='Ingrese un ID de cliente válido.')
+        DataRequired(message='Seleccione un cliente.')
         ]
     )
 

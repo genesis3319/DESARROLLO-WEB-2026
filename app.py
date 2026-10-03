@@ -985,6 +985,20 @@ def nueva_factura():
     # Obtener todos los productos
     productos = cursor.fetchall()
 
+
+    # Consultar los clientes registrados en PostgreSQL
+    cursor.execute(
+        '''
+        SELECT id_cliente, nombre
+        FROM clientes
+        ORDER BY nombre
+        '''
+    )
+
+    # Obtener todos los clientes
+    clientes = cursor.fetchall()
+
+
     # Cerrar cursor y conexión
     cursor.close()
     conexion.close()
@@ -993,6 +1007,12 @@ def nueva_factura():
     form.id_producto.choices = [
          (producto[0], producto[1])
          for producto in productos
+    ]
+
+    # Cargar los clientes reales en la lista desplegable
+    form.id_cliente.choices = [
+         (cliente[0], cliente[1])
+         for cliente in clientes
     ]
 
     # Validar los datos enviados por el formulario
@@ -1127,6 +1147,24 @@ def editar_factura(id_factura):
     form.id_producto.choices = [
         (producto['id_producto'], producto['nombre'])
         for producto in productos
+    ]
+
+    # Consultar los clientes registrados en PostgreSQL
+    cursor.execute(
+        '''
+        SELECT id_cliente, nombre
+        FROM clientes
+        ORDER BY nombre
+        '''
+    )
+
+    # Obtener todos los clientes
+    clientes = cursor.fetchall()
+
+    # Cargar los clientes en la lista desplegable
+    form.id_cliente.choices = [
+        (cliente['id_cliente'], cliente['nombre'])
+        for cliente in clientes
     ]
 
     # Procesar la actualización
